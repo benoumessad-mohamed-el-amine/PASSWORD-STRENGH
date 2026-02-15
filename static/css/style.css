@@ -98,7 +98,7 @@ h1 { font-size: 28px; color: #00ff99; margin-bottom: 10px; }
 .criteria-icon.unmet { background:#222; color:#666; }
 
 /* Feedback */
-.feedback-section { background: #004400; border-left: 4px solid #00ff99; border-radius:8px; padding:20px; margin-bottom:20px; }
+.feedback-section { background: rgba(0, 255, 153, 0.1); border-left: 4px solid #00ff99; border-radius:8px; padding:20px; margin-bottom:20px; }
 .feedback-list li { color:#00ff99; padding: 8px 0; font-size:14px; border-bottom:1px solid rgba(0,255,153,0.2); }
 
 /* Footer */
@@ -111,4 +111,10 @@ h1 { font-size: 28px; color: #00ff99; margin-bottom: 10px; }
     h1 { font-size:24px; }
     .info-grid { grid-template-columns:1fr; }
     .info-value { font-size:20px; }
+}
+.credit {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+    margin-top: 8px;
 }
