@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Analyzer</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Password Strength Analyzer</h1>
+            <p class="subtitle">Test your password's security in real-time</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="password-input" 
+                    placeholder="Enter your password"
+                    autocomplete="off"
+                />
+                <button type="button" class="toggle-password" id="togglePassword">
+                    👁️
+                </button>
+            </div>
+
+            <div class="strength-meter">
+                <div class="strength-meter-fill" id="strengthMeterFill"></div>
+            </div>
+            <div class="strength-text" id="strengthText">Enter a password to scan</div>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Entropy</div>
+                    <div class="info-value" id="entropyValue">-</div>
+                    <div class="info-unit">bits</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Time to Crack</div>
+                    <div class="info-value" id="timeToCrack">-</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Character Pool</div>
+                    <div class="info-value" id="charPool">-</div>
+                    <div class="info-unit">characters</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Length</div>
+                    <div class="info-value" id="passwordLength">-</div>
+                    <div class="info-unit">characters</div>
+                </div>
+            </div>
+
+            <div class="criteria-section" id="criteriaSection">
+                <h3>Security Requirements</h3>
+                <div class="criteria-list" id="criteriaList">
+                    <div class="criteria-item">
+                        <span class="criteria-icon" id="lowercaseIcon">✓</span>
+                        <span>Contains lowercase letters (a-z)</span>
+                    </div>
+                    <div class="criteria-item">
+                        <span class="criteria-icon" id="uppercaseIcon">✓</span>
+                        <span>Contains uppercase letters (A-Z)</span>
+                    </div>
+                    <div class="criteria-item">
+                        <span class="criteria-icon" id="numberIcon">✓</span>
+                        <span>Contains numbers (0-9)</span>
+                    </div>
+                    <div class="criteria-item">
+                        <span class="criteria-icon" id="symbolIcon">✓</span>
+                        <span>Contains symbols (!@#$%^&*)</span>
+                    </div>
+                    <div class="criteria-item">
+                        <span class="criteria-icon" id="lengthIcon">✓</span>
+                        <span>At least 8 characters long</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feedback-section" id="feedbackSection" style="display: none;">
+                <h3>💡 Suggestions</h3>
+                <ul class="feedback-list" id="feedbackList"></ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>⚠️ Your password is never stored or transmitted. All analysis happens locally in your browser.</p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

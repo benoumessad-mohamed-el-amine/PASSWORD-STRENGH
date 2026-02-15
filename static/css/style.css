@@ -1,0 +1,114 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    background: url("/static/assets/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #00ff99;
+}
+
+/* Dark overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.6);
+    pointer-events: none;
+}
+
+/* Container */
+.container {
+    background: rgba(0,0,0,0.85);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,255,153,0.3);
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    animation: slideIn 0.5s ease;
+    z-index: 1;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.header { text-align: center; margin-bottom: 30px; }
+h1 { font-size: 28px; color: #00ff99; margin-bottom: 10px; }
+.subtitle { font-size: 14px; color: #66ffcc; }
+
+/* Input Section */
+.input-section { margin-bottom: 30px; }
+.input-group { position: relative; margin-bottom: 20px; }
+.password-input {
+    width: 100%; padding: 15px 50px 15px 15px;
+    border: 2px solid #00ff99; border-radius: 10px;
+    font-size: 16px; font-family: 'Courier New', monospace;
+    background: rgba(0,0,0,0.2); color: #00ff99;
+    transition: all 0.3s ease;
+}
+.password-input:focus {
+    outline: none; box-shadow: 0 0 10px #00ff99;
+}
+
+.toggle-password {
+    position: absolute; right: 15px; top:50%; transform: translateY(-50%);
+    background:none; border:none; cursor:pointer; font-size:20px; color:#00ff99;
+}
+
+/* Strength Meter */
+.strength-meter { height: 8px; background: #222; border-radius: 10px; overflow:hidden; margin-bottom: 10px; }
+.strength-meter-fill { height:100%; width:0%; border-radius:10px; transition: all 0.5s ease; }
+
+/* Colors for strength */
+.very-weak { background: #ff3333; }
+.weak { background: #ff9933; }
+.medium { background: #ffff33; }
+.strong { background: #33ff33; }
+.very-strong { background: #00ff99; }
+
+.strength-text { text-align:center; font-weight:600; margin-bottom:20px; font-size:18px; }
+
+/* Info grid */
+.info-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; margin-bottom:25px; }
+.info-card { background: rgba(0,255,153,0.1); padding:20px; border-radius:12px; text-align:center; transition: all 0.3s ease; }
+.info-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,255,153,0.2); }
+.info-label { font-size:12px; color:#66ffcc; text-transform:uppercase; margin-bottom:8px; }
+.info-value { font-size:24px; font-weight:bold; color:#00ff99; margin-bottom:4px; }
+.info-unit { font-size:11px; color:#66ffcc; }
+
+/* Criteria Section */
+.criteria-section { background: rgba(0,255,153,0.1); border-radius:12px; padding:20px; margin-bottom:20px; }
+.criteria-list { display:flex; flex-direction:column; gap:12px; }
+.criteria-item { display:flex; align-items:center; font-size:14px; }
+.criteria-icon { width:24px; height:24px; border-radius:50%; margin-right:12px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.criteria-icon.met { background:#00ff99; color:#000; }
+.criteria-icon.unmet { background:#222; color:#666; }
+
+/* Feedback */
+.feedback-section { background: #004400; border-left: 4px solid #00ff99; border-radius:8px; padding:20px; margin-bottom:20px; }
+.feedback-list li { color:#00ff99; padding: 8px 0; font-size:14px; border-bottom:1px solid rgba(0,255,153,0.2); }
+
+/* Footer */
+.footer { text-align:center; margin-top:25px; padding-top:25px; border-top:1px solid rgba(0,255,153,0.2); }
+.footer p { color:#66ffcc; font-size:12px; }
+
+/* Responsive */
+@media (max-width:640px){
+    .container { padding:25px; }
+    h1 { font-size:24px; }
+    .info-grid { grid-template-columns:1fr; }
+    .info-value { font-size:20px; }
+}
