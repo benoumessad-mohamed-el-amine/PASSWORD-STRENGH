@@ -68,6 +68,7 @@ CACHES = {
         'LOCATION': 'password-checker-cache',
     }
 }
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'password_checker.urls'
 
