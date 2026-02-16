@@ -190,12 +190,6 @@ Edit `static/css/style.css` to change colors, fonts, and layout.
    python manage.py collectstatic
    ```
 
-3. **Use production server**:
-   ```bash
-   pip install gunicorn
-   gunicorn password_checker.wsgi:application
-   ```
-
 4. **Set up HTTPS** (required for production)
 
 ## 📝 License
