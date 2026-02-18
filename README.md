@@ -82,128 +82,146 @@ password_checker_project/
 ```json
 {
   "entropy_bits": 65.27,
-  "time_to_crack": "11.7 years",
-  "strength": "Strong",
-  "feedback": [],
-  "character_pool": 94,
-  "password_length": 14
+# 🔐 Password Strength Checker
+
+A real-time password strength analyzer built with Django. This project provides instant, actionable feedback to help users create stronger passwords.
+
+## ✨ Features
+
+- Real-time password strength feedback
+- Entropy calculation and time-to-crack estimation
+- Color-coded strength meter and checklist guidance
+- Passwords are processed in memory and not stored or logged
+- Lightweight Django REST API for analysis
+
+## 🎯 Metrics
+
+- Entropy (bits)
+- Character pool size
+- Estimated time to crack (based on guesses/sec)
+- Strength rating (Very Weak → Very Strong)
+- Actionable feedback to improve passwords
+
+## 🚀 Quick Start (Local)
+
+1. Create and activate a virtual environment (recommended):
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run migrations and start the development server:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+4. Open your browser at `http://127.0.0.1:8000/`
+
+## 🚢 Quick Start (Docker)
+
+If you prefer Docker:
+
+```bash
+docker-compose up --build -d
+docker-compose exec web python manage.py migrate
+```
+
+Then visit `http://127.0.0.1:8000/`.
+
+## 📁 Project Structure (key files)
+
+```
+./
+├── checker/            # Django app that implements the password analysis
+├── password_checker/   # Django project settings
+├── static/             # Frontend assets (css, js)
+├── templates/          # HTML templates
+├── manage.py           # Django management script
+└── requirements.txt    # Python dependencies
+```
+
+## 🔌 API Usage
+
+Endpoint: `/api/check/` (POST)
+
+Request body:
+
+```json
+{ "password": "MyPassword123!" }
+```
+
+Example response:
+
+```json
+{
+   "entropy_bits": 65.27,
+   "time_to_crack": "11.7 years",
+   "strength": "Strong",
+   "feedback": [],
+   "character_pool": 94,
+   "password_length": 14
 }
 ```
 
-### Example with cURL:
+cURL example:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/api/check/ \
-  -H "Content-Type: application/json" \
-  -d '{"password":"TestPass123!"}'
+   -H "Content-Type: application/json" \
+   -d '{"password":"TestPass123!"}'
 ```
 
-### Example with Python:
+## 🧪 Tests
 
-```python
-import requests
-
-response = requests.post(
-    'http://127.0.0.1:8000/api/check/',
-    json={'password': 'TestPass123!'}
-)
-print(response.json())
-```
-
-## 🧪 Running Tests
+Run unit tests:
 
 ```bash
 python manage.py test checker
 ```
 
-## 🔒 Security Features
+## 🔒 Security Notes
 
-- **No Storage**: Passwords are processed in memory and never stored
-- **No Logging**: Password values are never logged
-- **CSRF Protection**: Enabled by default in Django
-- **Input Validation**: Server-side validation of all inputs
-- **Error Handling**: Graceful handling of invalid requests
+- Passwords are processed in memory and not persisted
+- Password values are not logged
+- Django's CSRF protection is enabled by default
 
-## 📊 Password Strength Criteria
+## 📊 How Strength Is Calculated
 
-The application evaluates passwords based on:
+Entropy is calculated as:
 
-1. **Character Diversity**:
-   - Lowercase letters (a-z)
-   - Uppercase letters (A-Z)
-   - Numbers (0-9)
-   - Symbols (!@#$%^&*)
+$$Entropy = Length \\times \\log_2(CharacterPoolSize)$$
 
-2. **Length**: Minimum 8 characters recommended
+Recommended thresholds (configurable in code):
 
-3. **Entropy**: Calculated using the formula:
-   ```
-   Entropy = Length × log₂(Character Pool Size)
-   ```
+- Very Weak: < 28 bits
+- Weak: 28–36 bits
+- Medium: 36–60 bits
+- Strong: 60–80 bits
+- Very Strong: > 80 bits
 
-4. **Strength Ratings**:
-   - Very Weak: < 28 bits
-   - Weak: 28-36 bits
-   - Medium: 36-60 bits
-   - Strong: 60-80 bits
-   - Very Strong: > 80 bits
+## ⚙️ Customization
 
-## 🎨 Customization
+- Adjust thresholds in `checker/views.py` where strength is determined.
+- Update `guesses_per_second` in code to change time-to-crack assumptions.
+- Modify `static/css/style.css` to change styling.
 
-### Change Strength Thresholds
+## 🌐 Deployment (production hints)
 
-Edit `checker/views.py`:
-
-```python
-if entropy < 28:
-    strength = "Very Weak"
-elif entropy < 36:
-    strength = "Weak"
-# ... modify as needed
-```
-
-### Update Guesses Per Second
-
-Edit the `guesses_per_second` variable in `views.py`:
-
-```python
-guesses_per_second = 10_000_000_000  # Adjust this value
-```
-
-### Customize Styling
-
-Edit `static/css/style.css` to change colors, fonts, and layout.
-
-## 🌐 Deployment
-
-### For Production:
-
-1. **Update settings.py**:
-   ```python
-   DEBUG = False
-   ALLOWED_HOSTS = ['yourdomain.com']
-   SECRET_KEY = 'your-secure-secret-key'
-   ```
-
-2. **Collect static files**:
-   ```bash
-   python manage.py collectstatic
-   ```
-
-4. **Set up HTTPS** (required for production)
-
-## 📝 License
-
-This project is open source and available for educational purposes.
+- Set `DEBUG = False` and configure `ALLOWED_HOSTS` and `SECRET_KEY` in `password_checker/settings.py`.
+- Run `python manage.py collectstatic` and serve static files via a web server.
+- Use HTTPS in production.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit issues or pull requests.
+Contributions welcome — please open an issue or submit a pull request.
 
-## 📧 Support
-
-For questions or issues, please open an issue on the repository.
-
----
-
-**Note**: This tool is for educational purposes. Always use strong, unique passwords for each of your accounts and consider using a password manager.
+If you'd like, I can also add a short Docker deployment section or update any paths to match your preferred setup.
